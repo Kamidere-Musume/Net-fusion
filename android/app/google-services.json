@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "458782984871",
+    "project_id": "net-fusion-16728",
+    "storage_bucket": "net-fusion-16728.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:458782984871:android:aa1edc66a1f2b9e177a982",
+        "android_client_info": {
+          "package_name": "com.example.netfusion"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1HchpyrEaOQbzRKPhAXYaUq4jyLg22t0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
