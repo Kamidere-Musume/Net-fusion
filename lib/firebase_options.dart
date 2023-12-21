@@ -17,15 +17,24 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,39 +52,11 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyC3heaIiH8Godhi6KKdfyYSVgHzyGQh8-o',
-    appId: '1:458782984871:web:cc6c0e089adef86177a982',
-    messagingSenderId: '458782984871',
-    projectId: 'net-fusion-16728',
-    authDomain: 'net-fusion-16728.firebaseapp.com',
-    storageBucket: 'net-fusion-16728.appspot.com',
-    measurementId: 'G-8XRR9MJNYF',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyB1HchpyrEaOQbzRKPhAXYaUq4jyLg22t0',
     appId: '1:458782984871:android:aa1edc66a1f2b9e177a982',
     messagingSenderId: '458782984871',
     projectId: 'net-fusion-16728',
     storageBucket: 'net-fusion-16728.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCilVtcWMktf2NLo0X4s8khD0tcX-5MsDM',
-    appId: '1:458782984871:ios:5e8d0397c341719a77a982',
-    messagingSenderId: '458782984871',
-    projectId: 'net-fusion-16728',
-    storageBucket: 'net-fusion-16728.appspot.com',
-    iosBundleId: 'com.example.netfusion',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyCilVtcWMktf2NLo0X4s8khD0tcX-5MsDM',
-    appId: '1:458782984871:ios:69173b71c52c2cc677a982',
-    messagingSenderId: '458782984871',
-    projectId: 'net-fusion-16728',
-    storageBucket: 'net-fusion-16728.appspot.com',
-    iosBundleId: 'com.example.netfusion.RunnerTests',
   );
 }
