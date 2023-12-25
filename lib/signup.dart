@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:netfusion/login.dart';
 import 'package:netfusion/signup2.dart';
 import 'package:netfusion/widgets/form_container_widget.dart';
-
 import 'firebase_auth/firebase_auth_service.dart';
 
 class SignupPage extends StatefulWidget {
@@ -164,7 +163,11 @@ class SignupPageState extends State<SignupPage>{
 
     if (user!= null){
       print("User is sucessfully created");
-      Navigator.pushNamed(context,"/signup2");
+      print(FirebaseAuth.instance);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => LoginPage()),
+      );
     }
     else{
       print("Error");

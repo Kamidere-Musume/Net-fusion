@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:netfusion/signup.dart';
+import 'package:netfusion/signup2.dart';
 
 import 'firebase_options.dart';
 void main() async {
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
           ),
           useMaterial3: true, colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple).copyWith(background: Colors.black),
         ),
-        home: SignupPage()
+        home: Signup2()
     );
   }
 }

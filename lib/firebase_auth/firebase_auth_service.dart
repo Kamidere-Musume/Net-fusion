@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -7,7 +6,6 @@ class FirebaseAuthService{
   FirebaseAuth _auth =  FirebaseAuth.instance;
 
   Future<User?>signup(String email, String password,String firstname, String lastname, String number, String username)async{
-    print(_auth);
     try{
       UserCredential credential = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       // Create a new user with a first and last name
@@ -15,8 +13,9 @@ class FirebaseAuthService{
         "firstname":firstname,
         "lastname":lastname,
         "number":number,
-        "username":username
-      }).then((value) => print("nigaas"));
+        "username":username,
+        "profilepic":""
+      }).then((value) => print("sucessfull"));
       return credential.user;
     }
     catch(e){

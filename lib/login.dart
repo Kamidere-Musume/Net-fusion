@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:netfusion/signup.dart';
+import 'package:netfusion/signup2.dart';
 import 'package:netfusion/widgets/form_container_widget.dart';
 
 import 'firebase_auth/firebase_auth_service.dart';
@@ -140,7 +141,10 @@ class LoginPageState extends State<LoginPage>{
 
     if (user!= null){
       print("User is sucessfully lggged in");
-      Navigator.pushNamed(context,"lib/signup.dart");
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Signup2()),
+      );
     }
     else{
       print("Error");
