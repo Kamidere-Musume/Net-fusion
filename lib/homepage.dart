@@ -1,23 +1,45 @@
-import 'dart:ffi';
-
-import 'package:flutter/cupertino.dart';
-import 'package:netfusion/firebase_auth/utilities.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 class Homepage extends StatefulWidget {
-  const Homepage({super.key});
-
   @override
-  State<Homepage> createState() => _HomepageState();
+  State<Homepage> createState() {
+    return HomepageState();
+  }
 }
 
-class _HomepageState extends State<Homepage> {
-  @override 
-  build(BuildContext context) async {
+class HomepageState extends State<Homepage> {
+  @override
+  Widget build(BuildContext context) {
     return SafeArea(
-      child: SingleChildScrollView(
-        child: Column(
+      child: Scaffold(
+        body: Column(
           children: [
-
+            Flexible(
+              child: StreamBuilder(
+                stream: FirebaseFirestore.instance.collection("posts").snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    print("error");
+                  }
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  if (snapshot.data == null) {
+                    return const Text("No Data");
+                  }
+                  final posts = snapshot.data!.docs;
+                  return ListView.builder(
+                    itemCount: posts.length,
+                    itemBuilder: (context, index) {
+                      return Image.network(posts[index]['imageurl']);
+                    },
+                  );
+                },
+              ),
+            )
           ],
         ),
       ),

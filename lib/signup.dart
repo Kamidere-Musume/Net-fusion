@@ -159,14 +159,14 @@ class SignupPageState extends State<SignupPage>{
     String number = _numberController.text;
     String email = _emailController.text;
 
-    User? user = await _auth.signup(email, password,username,firstname,lastname,number);
+    User? user = await _auth.signup(email,password,firstname,lastname,number,username);
 
     if (user!= null){
       print("User is sucessfully created");
       print(FirebaseAuth.instance);
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => LoginPage()),
+        MaterialPageRoute(builder: (context) => Signup2()),
       );
     }
     else{

@@ -3,13 +3,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:netfusion/homepage.dart';
 import 'package:netfusion/login.dart';
+import 'package:netfusion/profile.dart';
 import 'package:netfusion/signup.dart';
 import 'package:netfusion/signup2.dart';
 import 'package:netfusion/upload.dart';
 
 import 'firebase_options.dart';
 void main() async{
-  WidgetsFlutterBinding.ensureInitialized();
+    WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
       options: FirebaseOptions(apiKey: "AIzaSyB1HchpyrEaOQbzRKPhAXYaUq4jyLg22t0",
           appId:"1:458782984871:android:aa1edc66a1f2b9e177a982",

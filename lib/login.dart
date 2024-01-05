@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:netfusion/profile.dart';
 import 'package:netfusion/signup.dart';
 import 'package:netfusion/signup2.dart';
 import 'package:netfusion/widgets/form_container_widget.dart';

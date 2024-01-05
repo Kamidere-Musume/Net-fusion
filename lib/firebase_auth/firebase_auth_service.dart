@@ -14,7 +14,7 @@ class FirebaseAuthService{
         "lastname":lastname,
         "number":number,
         "username":username,
-        "profilepic":""
+        "profilepic":"",
       }).then((value) => print("sucessfull"));
       return credential.user;
     }

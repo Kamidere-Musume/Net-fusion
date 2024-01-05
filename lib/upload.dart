@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:netfusion/firebase_auth/utilities.dart';
+import 'package:netfusion/homepage.dart';
 import 'package:netfusion/widgets/form_container_widget.dart';
 import 'package:permission_handler/permission_handler.dart';
 class UploadPage extends StatefulWidget {
@@ -15,7 +16,6 @@ class UploadPage extends StatefulWidget {
 class _UploadPageState extends State<UploadPage> {
   TextEditingController _captionController = TextEditingController();
   File? imageUrl;
-
     showImage() async{
     final _imagePicker = ImagePicker();
     XFile? image = await _imagePicker.pickImage(source: ImageSource.gallery);
@@ -44,11 +44,13 @@ class _UploadPageState extends State<UploadPage> {
             "userid": userdata.uid,
             "imageurl": downloadUrl,
             "caption":_captionController.text,
-            "upload_date":FieldValue.serverTimestamp()
+            "upload_date":FieldValue.serverTimestamp(),
+            "username": userdata.username
           });
-     /* setState(() {
-        imageUrl = downloadUrl;
-      });*/
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Homepage()),
+      );
     }
     else {
       print('No Image Path Received');
@@ -56,54 +58,75 @@ class _UploadPageState extends State<UploadPage> {
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: Text("Net Fusion",style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
-            ),
-            Container(
-              width: 220,
-              height: 50,
-              decoration: BoxDecoration(
-                  color: Colors.green,
-                  borderRadius: BorderRadius.circular(50)),
-              child: GestureDetector
-                (
-                  onTap: uploadImage,
-                  child: Text("Upload")),
-            ),
-            Container(
-              width: 220,
-              height: 50,
-              decoration: BoxDecoration(
-                  color: Colors.green,
-                  borderRadius: BorderRadius.circular(50)),
-              child: GestureDetector
-                (
-                  onTap: ()async{
-                    await showImage();
-                  },
-                  child: Text("Select Image")),
-            ),
-            FormContainerWidget(
-              hintText: "Caption",
-              controller: _captionController,
-            ),
-            if (imageUrl != null)
-              Expanded(
-                child : Container(
-                  width: 300,
-                  height: 10,
-                  child: Image.file(
-                    imageUrl!,
-                  ),
+    return SafeArea(
+      child: Scaffold(
+        body: Container(
+          child: Column(
+            children: [
+              SizedBox(height: 80,),
+              Padding(
+                padding: const EdgeInsets.only(left: 30),
+                child: Row(
+                  children: [
+                    Icon(Icons.arrow_back_ios,color: Colors.white,),
+                    SizedBox(width: 50,),
+                    Text('Create Post',style: TextStyle(
+                      color: Colors.green,
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold
+                    ),)
+                  ],
                 ),
               ),
-
-          ],
+              SizedBox(height: 30,),
+              FormContainerWidget(
+                hintText: "Caption",
+                controller: _captionController,
+              ),
+              SizedBox(height: 50,),
+              if (imageUrl != null)
+                  Container(
+                    width: 300,
+                    height: 350,
+                    child: Image.file(
+                      imageUrl!,
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+              if(imageUrl == null)
+                 Container(
+                  width: 250,
+                  height: 300,
+                  child:   Image.asset("assets/images/upload.png"),
+                ),
+              SizedBox(height: 40,),
+              Container(
+                width: 150,
+                height: 50,
+                decoration: BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.circular(50)),
+                child: GestureDetector
+                  (
+                    onTap: ()async{
+                      await showImage();
+                    },
+                    child: Center(child: Text("Select Image",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),))),
+              ),
+              SizedBox(height: 30,),
+              if(imageUrl!=null)
+              Container(
+                width: 150,
+                height: 50,
+                decoration: BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.circular(50)),
+                child: GestureDetector
+                  (
+                    onTap: uploadImage,
+                    child: Center(child: Text("Upload",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),)))),
+            ],
+          ),
         ),
       ),
     );
