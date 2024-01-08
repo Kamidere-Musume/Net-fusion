@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:netfusion/homepage.dart';
 import 'package:netfusion/profile.dart';
 import 'package:netfusion/signup.dart';
 import 'package:netfusion/signup2.dart';
+import 'package:netfusion/upload.dart';
 import 'package:netfusion/widgets/form_container_widget.dart';
 
 import 'firebase_auth/firebase_auth_service.dart';
@@ -115,7 +117,40 @@ class LoginPageState extends State<LoginPage>{
                       ),
                     ),
                     SizedBox(height: 30,),
-                    getLinks(text: "Login", color: Colors.green,path: _signin),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Container(
+                          width: 150,
+                          height: 50,
+                          decoration: BoxDecoration(
+                              color: Colors.green,
+                              borderRadius: BorderRadius.circular(50)
+                          ),
+                          child: GestureDetector(
+                              onTap: (){
+                                _signin();
+                              },
+                              child: Center(child: Text("Login",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22))))),
+                        Container(
+                          width: 150,
+                          height: 50,
+                          decoration: BoxDecoration(
+                              color: Colors.green,
+                              borderRadius: BorderRadius.circular(50)
+                          ),
+                          child: GestureDetector(
+                            onTap: (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => SignupPage()),
+                              );
+                            },
+                            child: Center(child: Text("Sign Up",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22))),
+                          ),
+                        )
+                      ],
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(top:20),
                       child: Container(
@@ -141,14 +176,34 @@ class LoginPageState extends State<LoginPage>{
     User? user = await _auth.signin(email, password);
 
     if (user!= null){
-      print("User is sucessfully lggged in");
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => Signup2()),
+        MaterialPageRoute(builder: (context) => Homepage()),
       );
     }
     else{
-      print("Error");
+      _showPopupDialog("Username or Password incorrect");
     }
   }
+
+  void _showPopupDialog(String info) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Message"),
+          content: Text(info),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: Text("Close"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 }

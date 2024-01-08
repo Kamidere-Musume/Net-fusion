@@ -70,3 +70,17 @@ Future<List<Map<String, dynamic>>> retrievePost()async{
  return allData;
 }
 
+Future<String?> getProfilePicture() async {
+  var userdata = MyUser().getCurrentUser();
+  DocumentSnapshot doc =
+  await FirebaseFirestore.instance.collection("users").doc(userdata.uid).get();
+
+  if (doc.exists) {
+    final Map<String, dynamic>? data = doc.data() as Map<String, dynamic>?;
+
+    if (data != null && data['profilepic'] != null) {
+      return data['profilepic'];
+    }
+  }
+  return null;
+}

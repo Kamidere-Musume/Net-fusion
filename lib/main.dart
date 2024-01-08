@@ -2,10 +2,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:netfusion/homepage.dart';
+import 'package:netfusion/loadingScreen.dart';
 import 'package:netfusion/login.dart';
 import 'package:netfusion/profile.dart';
 import 'package:netfusion/signup.dart';
 import 'package:netfusion/signup2.dart';
+import 'package:netfusion/updateProfile.dart';
 import 'package:netfusion/upload.dart';
 
 import 'firebase_options.dart';
@@ -36,7 +38,7 @@ class _MyAppState extends State<MyApp> {
           ),
           useMaterial3: true, colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple).copyWith(background: Colors.black),
         ),
-        home: Homepage()
+        home: LoadingScreen()
     );
   }
 }

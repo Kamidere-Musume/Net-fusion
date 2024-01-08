@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:netfusion/firebase_auth/utilities.dart';
 import 'package:netfusion/homepage.dart';
+import 'package:netfusion/profile.dart';
 import 'package:netfusion/widgets/form_container_widget.dart';
 import 'package:permission_handler/permission_handler.dart';
 class UploadPage extends StatefulWidget {
@@ -47,19 +48,21 @@ class _UploadPageState extends State<UploadPage> {
             "upload_date":FieldValue.serverTimestamp(),
             "username": userdata.username
           });
+      _showPopupDialog("Post has been added");
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => Homepage()),
       );
     }
     else {
-      print('No Image Path Received');
+      _showPopupDialog("Unable to add post");
     }
   }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Container(
           child: Column(
             children: [
@@ -87,10 +90,10 @@ class _UploadPageState extends State<UploadPage> {
               if (imageUrl != null)
                   Container(
                     width: 300,
-                    height: 350,
+                    height: 300,
                     child: Image.file(
                       imageUrl!,
-                      fit: BoxFit.fill,
+                      fit: BoxFit.cover,
                     ),
                   ),
               if(imageUrl == null)
@@ -128,7 +131,66 @@ class _UploadPageState extends State<UploadPage> {
             ],
           ),
         ),
+        bottomNavigationBar: BottomAppBar(
+          height: 55,
+          color: Colors.transparent,
+          child: Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: Icon(Icons.home,size: 30,weight: 20,color: Colors.white,),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Homepage()),
+                    );
+                  },
+                ),
+                IconButton(
+                  icon: Icon(Icons.add,size: 30,weight: 20,color: Colors.white,),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => UploadPage()),
+                    );
+                  },
+                ),
+                IconButton(
+                  icon: Icon(Icons.person,size: 30,weight: 20,color: Colors.white,),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) =>Profile()),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
+    );
+  }
+
+  void _showPopupDialog(String info) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Message"),
+          content: Text(info),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: Text("Close"),
+            ),
+          ],
+        );
+      },
     );
   }
 }

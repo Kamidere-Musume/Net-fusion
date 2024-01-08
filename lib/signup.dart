@@ -38,10 +38,10 @@ class SignupPageState extends State<SignupPage>{
             padding: const EdgeInsets.only(left: 25,right: 10),
             child: Image.asset(image,width: 20,),
           ),
-          if (image == null) SizedBox(width: 60),
+          if (image == null) SizedBox(width: 40),
           GestureDetector(
               onTap: path,
-              child: Text(text,style: TextStyle(fontWeight: FontWeight.bold),))
+              child: Text(text,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),))
         ],
       ),
     );
@@ -140,7 +140,30 @@ class SignupPageState extends State<SignupPage>{
                           ],
                         ),
                       ),
-                      getLinks(text: "Signup", color: Colors.green, path: _signup)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          getLinks(text: "Sign Up", color: Colors.green, path: _signup),
+                          GestureDetector(
+                            onTap: (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => LoginPage()),
+                              );
+
+                            },
+                            child: Container(
+                              width: 150,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                  color: Colors.green,
+                                  borderRadius: BorderRadius.circular(50)
+                              ),
+                                child: Center(child: Text("Login",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18 ))),
+                              ),
+                            ),
+                        ],
+                      )
                     ],
                   ),
                 ),
@@ -162,15 +185,35 @@ class SignupPageState extends State<SignupPage>{
     User? user = await _auth.signup(email,password,firstname,lastname,number,username);
 
     if (user!= null){
-      print("User is sucessfully created");
       print(FirebaseAuth.instance);
+      _showPopupDialog("User sucessfully created");
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => Signup2()),
       );
     }
     else{
-      print("Error");
+      _showPopupDialog("User couldn't be created");
     }
   }
+  void _showPopupDialog(String info) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Message"),
+          content: Text(info),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: Text("Close"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 }
